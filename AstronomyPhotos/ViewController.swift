@@ -48,8 +48,17 @@ extension ViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "photoCell", for: indexPath) as? PlanetCell else {
+            fatalError()
+        }
+        let imageURL = imagesURLs[indexPath.row]
+        cell.configureCell(with: imageURL)
+        return cell
     }
-    
-    
+}
+
+extension ViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 400
+    }
 }
